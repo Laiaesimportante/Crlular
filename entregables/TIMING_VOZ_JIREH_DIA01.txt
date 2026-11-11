@@ -1,0 +1,87 @@
+TIMING_VOZ_JIREH_DIA01 — Jireh Accessories · «La verdad incómoda sobre organizarse»
+==============================================================================
+ESTIMACIÓN (el audio real aún no existe). Velocidad base: 5.3 sílabas/s (~150 palabras/min), conversacional y reflexiva.
+Voz: joven, segura, conversacional, reflexiva, con carácter; sin tono publicitario.
+Locución estimada: 00:00.45 → 00:33.27 (32.82 s). Video total con cierre visual: 36.67 s.
+El guion cabe de forma natural en el objetivo de 30–40 s; no fue necesario acelerar la voz.
+Si tu locución real dura distinto, edita src/voice.json (start/end por palabra) o cambia SYL_PER_SEC y ejecuta `npm run timing`.
+
+FRAGMENTO 1 · Escena 1
+  Inicio: 00:00.45   Fin: 00:04.94   Duración: 4.49 s
+  Texto exacto: «Tener una agenda no significa que seas organizado.»
+  Entonación: Afirmación seca y segura, descendente; sin pregunta. Casi un sentencia.
+  Énfasis: NO, SIGNIFICA, ORGANIZADO
+  Pausas internas: 0.12 s tras «significa»; 0.16 s tras «seas»
+  Pausa posterior: 0.45 s
+  Palabra por palabra: Tener[0.45] una[0.85] agenda[1.24] no[1.88] significa[2.15] que[3.12] seas[3.33] organizado.[3.88]
+
+FRAGMENTO 2 · Escena 2
+  Inicio: 00:05.39   Fin: 00:12.96   Duración: 7.57 s
+  Texto exacto: «Puedes tener mil listas, escribir todos tus pendientes y aun así terminar el día sin haber avanzado.»
+  Entonación: Ritmo ágil, ligera aceleración al enumerar; cansancio/ironía suave en "sin haber avanzado".
+  Énfasis: MIL, LISTAS, PENDIENTES, AVANZADO
+  Pausas internas: 0.30 s tras «listas,»; 0.14 s tras «pendientes»; 0.10 s tras «día»
+  Pausa posterior: 0.45 s
+  Palabra por palabra: Puedes[5.39] tener[5.79] mil[6.19] listas,[6.41] escribir[7.15] todos[7.74] tus[8.13] pendientes[8.34] y[9.12] aun[9.33] así[9.73] terminar[10.21] el[10.79] día[11.00] sin[11.50] haber[11.71] avanzado.[12.11]
+
+FRAGMENTO 3 · Escena 3
+  Inicio: 00:13.41   Fin: 00:20.66   Duración: 7.25 s
+  Texto exacto: «El verdadero cambio comienza cuando dejas de llenar páginas y empiezas a cumplir lo que te propones.»
+  Entonación: Cambio de energía: más cálida y abierta, ritmo fluido; sube ligeramente en "cumplir".
+  Énfasis: COMIENZA, PÁGINAS, CUMPLIR, PROPONES
+  Pausas internas: 0.12 s tras «comienza»; 0.30 s tras «páginas»
+  Pausa posterior: 0.45 s
+  Palabra por palabra: El[13.41] verdadero[13.61] cambio[14.39] comienza[14.79] cuando[15.55] dejas[15.95] de[16.34] llenar[16.55] páginas[16.95] y[17.89] empiezas[18.10] a[18.69] cumplir[18.90] lo[19.39] que[19.60] te[19.81] propones.[20.02]
+
+FRAGMENTO 4 · Escena 4
+  Inicio: 00:21.11   Fin: 00:27.86   Duración: 6.75 s
+  Texto exacto: «Organizarte no es hacerlo todo, es aprender a darle prioridad a lo que realmente importa.»
+  Entonación: Reflexiva, más lenta y pausada; peso en "prioridad". Tono de consejo sincero.
+  Énfasis: TODO, PRIORIDAD, IMPORTA
+  Pausas internas: 0.35 s tras «todo,»
+  Pausa posterior: 0.45 s
+  Palabra por palabra: Organizarte[21.11] no[21.88] es[22.09] hacerlo[22.30] todo,[22.89] es[23.67] aprender[23.88] a[24.47] darle[24.68] prioridad[25.07] a[26.00] lo[26.21] que[26.42] realmente[26.63] importa.[27.22]
+
+FRAGMENTO 5 · Escena 5
+  Inicio: 00:28.31   Fin: 00:33.27   Duración: 4.96 s
+  Texto exacto: «Y tú, ¿estás organizando tus días o solamente anotando cosas?»
+  Entonación: Pregunta directa al espectador, cercana y desafiante sin juzgar; entonación ascendente final y última palabra más lenta.
+  Énfasis: COSAS
+  Pausas internas: 0.22 s tras «tú,»; 0.12 s tras «días»
+  Pausa posterior: cierre visual de 3.4 s (sin voz): «Síguenos para más ideas de organización»
+  Palabra por palabra: Y[28.31] tú,[28.52] ¿estás[28.95] organizando[29.34] tus[30.31] días[30.52] o[31.03] solamente[31.24] anotando[32.02] cosas?[32.83]
+
+
+==============================================================================
+ESCENAS DEL VIDEO (para colocar música/SFX y la voz en tu editor)
+==============================================================================
+Coloca el archivo de VOZ de modo que su primera palabra («Tener») caiga en 00:00.45 (0.45 s) y ajusta el resto con la tabla de arriba.
+Cambio de intensidad de la música: tensión 0:00 → 00:13.21; sensación positiva desde ahí.
+
+Escena 1 · LA FRASE QUE ROMPE LA CREENCIA
+  00:00.00 → 00:05.24  (5.24 s)
+  Sonido: Impacto de música en 0:00; golpes en NO / SIGNIFICA / ORGANIZADO
+
+Escena 2 · EL PROBLEMA
+  00:05.04 → 00:13.26  (8.22 s)
+  Sonido: Whip pan de entrada; whooshes de LISTAS/TAREAS/PENDIENTES; papeles
+
+Escena 3 · EL CAMBIO DE MENTALIDAD
+  00:13.06 → 00:20.96  (7.9 s)
+  Sonido: Impacto + cambio de música a positiva; listas se ordenan; check en «cumplir»
+
+Escena 4 · LA REFLEXIÓN
+  00:20.76 → 00:28.16  (7.4 s)
+  Sonido: Zoom de entrada; calendario; ding de tarea completada
+
+Escena 5 · INTERACCIÓN Y MARCA
+  00:27.96 → 00:36.67  (8.71 s)
+  Sonido: Match cut al magenta; pregunta; logo y CTA en silencio de voz
+
+MARCAS DE SONIDO (SFX)
+  Golpes/impactos: 00:00.00  00:01.88  00:02.15  00:03.88  00:06.41  00:08.34  00:13.21  00:18.90  00:25.07  00:27.22  00:28.26  00:29.34  00:32.83
+  Whooshes: 00:05.01  00:07.05  00:08.09  00:10.79  00:12.91  00:16.85  00:20.61  00:24.82  00:26.42  00:27.81  00:33.37
+  Papel: 00:06.19  00:06.31  00:06.41  00:06.49  00:06.63  00:07.74  00:08.13  00:09.33  00:14.79  00:15.55  00:15.95  00:16.34  00:16.55  00:21.11
+  Clicks: 00:00.40  00:17.89  00:18.69  00:23.67  00:26.63  00:31.03  00:34.17  00:34.87
+  Escritura: 00:21.21  00:21.66  00:22.08  00:22.44  00:22.50  00:22.79
+  Ding tarea completada: 00:27.67  00:19.20

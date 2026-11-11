@@ -1,0 +1,636 @@
+{
+ "fps": 30,
+ "speechEnd": 33.27,
+ "total": 36.67,
+ "frags": [
+  {
+   "id": 1,
+   "scene": 1,
+   "text": "Tener una agenda no significa que seas organizado.",
+   "tone": "Afirmación seca y segura, descendente; sin pregunta. Casi un sentencia.",
+   "start": 0.45,
+   "end": 4.94,
+   "words": [
+    {
+     "text": "Tener",
+     "start": 0.45,
+     "end": 0.85,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "una",
+     "start": 0.85,
+     "end": 1.24,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "agenda",
+     "start": 1.24,
+     "end": 1.83,
+     "emph": false,
+     "pauseAfter": 0.05
+    },
+    {
+     "text": "no",
+     "start": 1.88,
+     "end": 2.11,
+     "emph": true,
+     "pauseAfter": 0.04
+    },
+    {
+     "text": "significa",
+     "start": 2.15,
+     "end": 3,
+     "emph": true,
+     "pauseAfter": 0.12
+    },
+    {
+     "text": "que",
+     "start": 3.12,
+     "end": 3.33,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "seas",
+     "start": 3.33,
+     "end": 3.72,
+     "emph": false,
+     "pauseAfter": 0.16
+    },
+    {
+     "text": "organizado.",
+     "start": 3.88,
+     "end": 4.94,
+     "emph": true,
+     "pauseAfter": 0
+    }
+   ],
+   "blocks": [
+    {
+     "from": 0,
+     "to": 2
+    },
+    {
+     "from": 3,
+     "to": 4
+    },
+    {
+     "from": 5,
+     "to": 6
+    },
+    {
+     "from": 7,
+     "to": 7
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "scene": 2,
+   "text": "Puedes tener mil listas, escribir todos tus pendientes y aun así terminar el día sin haber avanzado.",
+   "tone": "Ritmo ágil, ligera aceleración al enumerar; cansancio/ironía suave en \"sin haber avanzado\".",
+   "start": 5.39,
+   "end": 12.96,
+   "words": [
+    {
+     "text": "Puedes",
+     "start": 5.39,
+     "end": 5.79,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "tener",
+     "start": 5.79,
+     "end": 6.19,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "mil",
+     "start": 6.19,
+     "end": 6.41,
+     "emph": true,
+     "pauseAfter": 0
+    },
+    {
+     "text": "listas,",
+     "start": 6.41,
+     "end": 6.85,
+     "emph": true,
+     "pauseAfter": 0.3
+    },
+    {
+     "text": "escribir",
+     "start": 7.15,
+     "end": 7.74,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "todos",
+     "start": 7.74,
+     "end": 8.13,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "tus",
+     "start": 8.13,
+     "end": 8.34,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "pendientes",
+     "start": 8.34,
+     "end": 8.98,
+     "emph": true,
+     "pauseAfter": 0.14
+    },
+    {
+     "text": "y",
+     "start": 9.12,
+     "end": 9.33,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "aun",
+     "start": 9.33,
+     "end": 9.73,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "así",
+     "start": 9.73,
+     "end": 10.13,
+     "emph": false,
+     "pauseAfter": 0.08
+    },
+    {
+     "text": "terminar",
+     "start": 10.21,
+     "end": 10.79,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "el",
+     "start": 10.79,
+     "end": 11,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "día",
+     "start": 11,
+     "end": 11.4,
+     "emph": false,
+     "pauseAfter": 0.1
+    },
+    {
+     "text": "sin",
+     "start": 11.5,
+     "end": 11.71,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "haber",
+     "start": 11.71,
+     "end": 12.11,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "avanzado.",
+     "start": 12.11,
+     "end": 12.96,
+     "emph": true,
+     "pauseAfter": 0
+    }
+   ],
+   "blocks": [
+    {
+     "from": 0,
+     "to": 2
+    },
+    {
+     "from": 3,
+     "to": 5
+    },
+    {
+     "from": 6,
+     "to": 7
+    },
+    {
+     "from": 8,
+     "to": 10
+    },
+    {
+     "from": 11,
+     "to": 13
+    },
+    {
+     "from": 14,
+     "to": 16
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "scene": 3,
+   "text": "El verdadero cambio comienza cuando dejas de llenar páginas y empiezas a cumplir lo que te propones.",
+   "tone": "Cambio de energía: más cálida y abierta, ritmo fluido; sube ligeramente en \"cumplir\".",
+   "start": 13.41,
+   "end": 20.66,
+   "words": [
+    {
+     "text": "El",
+     "start": 13.41,
+     "end": 13.61,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "verdadero",
+     "start": 13.61,
+     "end": 14.39,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "cambio",
+     "start": 14.39,
+     "end": 14.79,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "comienza",
+     "start": 14.79,
+     "end": 15.43,
+     "emph": true,
+     "pauseAfter": 0.12
+    },
+    {
+     "text": "cuando",
+     "start": 15.55,
+     "end": 15.95,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "dejas",
+     "start": 15.95,
+     "end": 16.34,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "de",
+     "start": 16.34,
+     "end": 16.55,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "llenar",
+     "start": 16.55,
+     "end": 16.95,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "páginas",
+     "start": 16.95,
+     "end": 17.59,
+     "emph": true,
+     "pauseAfter": 0.3
+    },
+    {
+     "text": "y",
+     "start": 17.89,
+     "end": 18.1,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "empiezas",
+     "start": 18.1,
+     "end": 18.69,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "a",
+     "start": 18.69,
+     "end": 18.9,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "cumplir",
+     "start": 18.9,
+     "end": 19.33,
+     "emph": true,
+     "pauseAfter": 0.06
+    },
+    {
+     "text": "lo",
+     "start": 19.39,
+     "end": 19.6,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "que",
+     "start": 19.6,
+     "end": 19.81,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "te",
+     "start": 19.81,
+     "end": 20.02,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "propones.",
+     "start": 20.02,
+     "end": 20.66,
+     "emph": true,
+     "pauseAfter": 0
+    }
+   ],
+   "blocks": [
+    {
+     "from": 0,
+     "to": 2
+    },
+    {
+     "from": 3,
+     "to": 5
+    },
+    {
+     "from": 6,
+     "to": 8
+    },
+    {
+     "from": 9,
+     "to": 11
+    },
+    {
+     "from": 12,
+     "to": 14
+    },
+    {
+     "from": 15,
+     "to": 16
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "scene": 4,
+   "text": "Organizarte no es hacerlo todo, es aprender a darle prioridad a lo que realmente importa.",
+   "tone": "Reflexiva, más lenta y pausada; peso en \"prioridad\". Tono de consejo sincero.",
+   "start": 21.11,
+   "end": 27.86,
+   "words": [
+    {
+     "text": "Organizarte",
+     "start": 21.11,
+     "end": 21.88,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "no",
+     "start": 21.88,
+     "end": 22.09,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "es",
+     "start": 22.09,
+     "end": 22.3,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "hacerlo",
+     "start": 22.3,
+     "end": 22.89,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "todo,",
+     "start": 22.89,
+     "end": 23.32,
+     "emph": true,
+     "pauseAfter": 0.35
+    },
+    {
+     "text": "es",
+     "start": 23.67,
+     "end": 23.88,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "aprender",
+     "start": 23.88,
+     "end": 24.47,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "a",
+     "start": 24.47,
+     "end": 24.68,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "darle",
+     "start": 24.68,
+     "end": 25.07,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "prioridad",
+     "start": 25.07,
+     "end": 25.92,
+     "emph": true,
+     "pauseAfter": 0.08
+    },
+    {
+     "text": "a",
+     "start": 26,
+     "end": 26.21,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "lo",
+     "start": 26.21,
+     "end": 26.42,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "que",
+     "start": 26.42,
+     "end": 26.63,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "realmente",
+     "start": 26.63,
+     "end": 27.22,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "importa.",
+     "start": 27.22,
+     "end": 27.86,
+     "emph": true,
+     "pauseAfter": 0
+    }
+   ],
+   "blocks": [
+    {
+     "from": 0,
+     "to": 2
+    },
+    {
+     "from": 3,
+     "to": 5
+    },
+    {
+     "from": 6,
+     "to": 8
+    },
+    {
+     "from": 9,
+     "to": 11
+    },
+    {
+     "from": 12,
+     "to": 14
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "scene": 5,
+   "text": "Y tú, ¿estás organizando tus días o solamente anotando cosas?",
+   "tone": "Pregunta directa al espectador, cercana y desafiante sin juzgar; entonación ascendente final y última palabra más lenta.",
+   "start": 28.31,
+   "end": 33.27,
+   "words": [
+    {
+     "text": "Y",
+     "start": 28.31,
+     "end": 28.52,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "tú,",
+     "start": 28.52,
+     "end": 28.73,
+     "emph": false,
+     "pauseAfter": 0.22
+    },
+    {
+     "text": "¿estás",
+     "start": 28.95,
+     "end": 29.34,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "organizando",
+     "start": 29.34,
+     "end": 30.31,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "tus",
+     "start": 30.31,
+     "end": 30.52,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "días",
+     "start": 30.52,
+     "end": 30.91,
+     "emph": false,
+     "pauseAfter": 0.12
+    },
+    {
+     "text": "o",
+     "start": 31.03,
+     "end": 31.24,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "solamente",
+     "start": 31.24,
+     "end": 32.02,
+     "emph": false,
+     "pauseAfter": 0
+    },
+    {
+     "text": "anotando",
+     "start": 32.02,
+     "end": 32.79,
+     "emph": false,
+     "pauseAfter": 0.04
+    },
+    {
+     "text": "cosas?",
+     "start": 32.83,
+     "end": 33.27,
+     "emph": true,
+     "pauseAfter": 0
+    }
+   ],
+   "blocks": [
+    {
+     "from": 0,
+     "to": 1
+    },
+    {
+     "from": 2,
+     "to": 4
+    },
+    {
+     "from": 5,
+     "to": 7
+    },
+    {
+     "from": 8,
+     "to": 9
+    }
+   ]
+  }
+ ]
+}
