@@ -44,7 +44,7 @@ export const Scene2: React.FC<{ t: number }> = ({ t }) => {
       <div style={{ position: 'absolute', inset: 0, perspective: 1000, perspectiveOrigin: '50% 42%', filter: `saturate(${1 - calm * 0.35})` }}>
         <div style={{ position: 'absolute', inset: 0, transformStyle: 'preserve-3d', transform: `translateZ(${cz}px)` }}>
           {/* producto en el centro, rodeado de listas */}
-          <div style={{ position: 'absolute', left: 512, top: 680, transformStyle: 'preserve-3d', transform: `translate(-50%,-50%) translateZ(-250px) rotateY(${-22 + t * 5}deg) rotateX(12deg) rotateZ(${-8}deg)` }}>
+          <div style={{ position: 'absolute', left: 512, top: 680, transformStyle: 'preserve-3d', transform: `translate(-50%,-50%) translateZ(${-250 - cz * 0.72}px) rotateY(${-22 + t * 5}deg) rotateX(12deg) rotateZ(${-8}deg)` }}>
             <Agenda w={400} h={480} src={agendaSrc('yus')} />
           </div>
           <PaperSwarm items={ITEMS} t={t} speed={1 - calm * 0.8} cx={SAFE.cx} cy={680} />

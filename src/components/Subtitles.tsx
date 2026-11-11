@@ -23,12 +23,14 @@ export const Subtitles: React.FC = () => {
   const { fps } = useVideoConfig();
   const t = frame / fps;
   if (t < SCENE.s2.from - 0.05 || t >= SCENE.s5.from - 0.05) return null; // S1 y S5: el texto grande ya es el subtítulo
+  const scrim = t < SCENE.s3.from + 0.1 ? <div style={{ position: 'absolute', left: 0, right: 0, top: SAFE.subTop - 140, height: 420, background: 'linear-gradient(180deg, transparent, rgba(10,9,12,.82) 45%, rgba(10,9,12,.82) 75%, transparent)' }} /> : null;
   const blk = BLOCKS.find((b) => t >= b.start - 0.04 && t < b.end);
-  if (!blk) return null;
+  if (!blk) return scrim;
   const light = t >= SCENE.s3.from + 0.15; // mundo claro desde la escena 3
   const exit = interpolate(t, [blk.end - 0.1, blk.end], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const enter = interpolate(t, [blk.start - 0.04, blk.start + 0.08], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   return (
+    <>{scrim}
     <div style={{ position: 'absolute', left: SAFE.x0, width: SAFE.x1 - SAFE.x0, top: SAFE.subTop, height: SAFE.subH, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center', gap: '8px 18px',
       opacity: exit * enter, transform: `translateY(${(1 - exit) * -14}px) scale(${0.97 + 0.03 * exit})` }}>
       {blk.words.map((w, i) => {
@@ -45,6 +47,6 @@ export const Subtitles: React.FC = () => {
             boxShadow: key ? `6px 6px 0 ${light ? C.ink : '#fff'}` : undefined }}>{w.text.replace(/\.$/, '')}</span>
         );
       })}
-    </div>
+    </div></>
   );
 };
