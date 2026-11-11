@@ -1,5 +1,6 @@
 import React from 'react';
-import { AbsoluteFill, Audio, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import voice from './voice.json';
 import { Scene1 } from './scenes/Scene1';
 import { Scene2 } from './scenes/Scene2';
 import { Scene3 } from './scenes/Scene3';
@@ -59,7 +60,7 @@ export const JirehDia01: React.FC = () => {
       <Subtitles />
       <AbsoluteFill style={{ background: '#fff', opacity: flash, pointerEvents: 'none' }} />
       <Grain opacity={t < SCENE.s3.from ? 0.13 : 0.06} />
-      <Audio src={staticFile('audio/musica_sfx.wav')} volume={0.9} />
+      <Audio src={staticFile('audio/musica_sfx.wav')} volume={(f) => interpolate(f / 30, [0.2, 0.5, voice.speechEnd, voice.speechEnd + 0.6], [0.9, 0.55, 0.55, 0.9], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} />
       {VOICE_FILE ? <Audio src={staticFile(`audio/${VOICE_FILE}`)} volume={1} /> : null}
     </AbsoluteFill>
   );

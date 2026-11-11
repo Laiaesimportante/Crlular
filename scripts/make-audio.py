@@ -66,16 +66,17 @@ out *= np.linspace(0.35, 0.8, len(out)) * env(len(out), 0.4, 0.15)
 add(mus, out, 0, 0, 0.55)
 t = 0.0
 while t < split - 0.1:
-    if t >= 0.5:  # latido de tensión
-        add(mus, kick(0.8), t, 0, 0.8 if t > 5 else 0.55)
-    if t >= 5.2:  # S2: hats 16avos aceleran
+    if t >= 0.4:  # latido de tensión
+        add(mus, kick(0.8), t, 0, 0.8 if t > cues['s2'] else 0.55)
+    if t >= cues['s2']:  # S2: hats 16avos aceleran
         for k in range(4): add(mus, hat(), t + k * beat / 4, 0.15 * (-1) ** k, 0.5)
-    elif t >= 2.0:
+    elif t >= 1.0:
         add(mus, hat(), t + beat / 2, 0.2, 0.4)
     t += beat
 # riser antes del cambio
-ri = filt(noise(split - 9.5 + 0.1), 'band', [400, 9000]) * np.linspace(0, 1, int((split - 9.5 + 0.1) * SR)) ** 2 * 0.5
-add(mus, ri, 9.5, 0, 0.6)
+rs = max(1.0, split - 3.2); rl = split - rs + 0.1
+nz = filt(noise(rl), 'band', [400, 9000]); ri = nz * np.linspace(0, 1, len(nz)) ** 2 * 0.5
+add(mus, ri, rs, 0, 0.6)
 # ---------- B: positiva (split → fin) ----------
 chords = [[48, 55, 64, 67], [43, 50, 62, 67], [45, 52, 60, 64], [41, 48, 60, 65]]  # C  G  Am  F
 bar = 4 * beat; nb = int(np.ceil((T - split) / bar)) + 1
@@ -87,9 +88,9 @@ for b in range(nb):
     for k in range(8):  # arpegio en 8vos
         add(mus, pluck(ch[(k % 4)] + 24 if k % 4 else ch[1] + 12), t0 + k * beat / 2, 0.3 * (-1) ** k, 0.28)
     for k in range(4):
-        add(mus, kick(0.9), t0 + k * beat, 0, 0.55 if t0 < split + 3.5 else 0.8)
+        add(mus, kick(0.9), t0 + k * beat, 0, 0.55 if t0 < split + 2.5 else 0.8)
         add(mus, hat(True), t0 + k * beat + beat / 2, 0.2, 0.32)
-        if k in (1, 3) and t0 > split + 3: add(mus, clap(), t0 + k * beat, 0, 0.5)
+        if k in (1, 3) and t0 > split + 2: add(mus, clap(), t0 + k * beat, 0, 0.5)
 # cola: resolución suave al final
 mus *= np.interp(tt, [0, 0.01, T - 1.4, T], [0.0, 1, 1, 0.0])[None]
 
@@ -104,7 +105,7 @@ for w in cues['whooshes']:
     y = sum(filt(x, 'band', fb, 1) * np.exp(-((u - c) / 0.17) ** 2) for fb, c in bands)
     add(sfx, y * 1.6, w - 0.15, rng.uniform(-0.6, 0.6), 0.9)
 for p in cues['paper']:
-    n = int(rng.uniform(0.09, 0.2) * SR); x = filt(noise(n / SR), 'band', [1800, 7000]) * env(n, 0.004, 0.12) * (0.5 + 0.5 * rng.random(n))
+    n = int(rng.uniform(0.09, 0.2) * SR); x = filt(rng.standard_normal(n), 'band', [1800, 7000]) * env(n, 0.004, 0.12) * (0.5 + 0.5 * rng.random(n))
     add(sfx, x * 0.9, p, rng.uniform(-0.7, 0.7), 0.8)
 for c in cues['clicks'] + cues['typing']:
     n = int(0.03 * SR); tt2 = np.arange(n) / SR

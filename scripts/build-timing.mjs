@@ -5,7 +5,7 @@ import fs from 'node:fs';
 const SYL_PER_SEC = 5.3; // ritmo reflexivo/conversacional (≈ 150 palabras/min en español)
 const START = 0.45;      // pequeño aire antes de la primera palabra
 const GAP_FRAG = 0.45;   // pausa entre fragmentos
-const TAIL = 3.4;        // cierre visual (CTA) después de la voz
+const TAIL = 6.0;        // cierre visual (CTA) después de la voz
 
 // w = [palabra, sílabas, pausa_después_seg, énfasis?]
 const F = [
@@ -27,6 +27,18 @@ const F = [
 ];
 
 const r = (x) => Math.round(x * 100) / 100;
+// Tiempos REALES medidos sobre el audio entregado (reconocimiento de voz con marcas por palabra).
+let AL = null;
+if (fs.existsSync('scripts/alignment_voz.json')) {
+  AL = [];
+  for (const w of JSON.parse(fs.readFileSync('scripts/alignment_voz.json', 'utf8'))) {
+    if (w.word === 'cumplirlo') { const m = w.start + (w.end - w.start) * 0.62; AL.push({ start: w.start, end: m }, { start: m, end: w.end }); }
+    else AL.push({ start: w.start, end: w.end });
+  }
+  const need = F.reduce((n, f) => n + f.w.length, 0);
+  if (AL.length !== need) throw new Error(`alineación: ${AL.length} palabras vs ${need} del guion`);
+}
+let wi = 0;
 let t = START;
 const frags = [];
 for (const f of F) {
@@ -35,7 +47,8 @@ for (const f of F) {
   for (const [text, syl, pause, emph] of f.w) {
     const slow = emph ? 1.1 : 1.0;                       // palabras enfatizadas, ligeramente más largas
     const d = (syl / SYL_PER_SEC) * slow + 0.02;
-    words.push({ text, start: r(t), end: r(t + d), emph: !!emph, pauseAfter: pause });
+    const a = AL ? AL[wi++] : null;
+    words.push({ text, start: r(a ? a.start : t), end: r(a ? a.end : t + d), emph: !!emph, pauseAfter: pause });
     t += d + pause;
   }
   // blocks (subtítulos)
@@ -43,7 +56,8 @@ for (const f of F) {
   let i = 0;
   for (const n of f.blocks) { blocks.push({ from: i, to: i + n - 1 }); i += n; }
   const text = f.w.map((x) => x[0]).join(' ');
-  frags.push({ id: f.id, scene: f.scene, text, tone: f.tone, start: r(fs0), end: r(t), words, blocks });
+  if (AL) words.forEach((w, i) => { w.pauseAfter = i < words.length - 1 ? r(Math.max(0, words[i + 1].start - w.end)) : 0; });
+  frags.push({ id: f.id, scene: f.scene, text, tone: f.tone, start: AL ? words[0].start : r(fs0), end: AL ? words[words.length - 1].end : r(t), words, blocks });
   t += GAP_FRAG;
 }
 const speechEnd = frags[frags.length - 1].end;
@@ -58,11 +72,11 @@ fs.writeFileSync('entregables/GUION_VOZ_JIREH_DIA01.txt',
 const mmss = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${(s % 60).toFixed(2).padStart(5, '0')}`;
 let o = 'TIMING_VOZ_JIREH_DIA01 — Jireh Accessories · «La verdad incómoda sobre organizarse»\n';
 o += '='.repeat(78) + '\n';
-o += `ESTIMACIÓN (el audio real aún no existe). Velocidad base: ${SYL_PER_SEC} sílabas/s (~150 palabras/min), conversacional y reflexiva.\n`;
+o += AL ? 'TIEMPOS REALES medidos sobre el audio entregado (Tener_una_.wav). El archivo de voz empieza en 00:00.00 del video (primera palabra en ' + mmss(frags[0].start) + ').\n' : `ESTIMACIÓN. Velocidad base: ${SYL_PER_SEC} sílabas/s.\n`;
 o += `Voz: joven, segura, conversacional, reflexiva, con carácter; sin tono publicitario.\n`;
-o += `Locución estimada: ${mmss(START)} → ${mmss(speechEnd)} (${r(speechEnd - START)} s). Video total con cierre visual: ${total} s.\n`;
-o += 'El guion cabe de forma natural en el objetivo de 30–40 s; no fue necesario acelerar la voz.\n';
-o += 'Si tu locución real dura distinto, edita src/voice.json (start/end por palabra) o cambia SYL_PER_SEC y ejecuta `npm run timing`.\n\n';
+o += `Locución: ${mmss(frags[0].start)} → ${mmss(speechEnd)} (${r(speechEnd - frags[0].start)} s). Video total con cierre visual: ${total} s.\n`;
+o += 'La locución real dura menos que la estimación (voz ágil); el video se ajustó a ella y se alargó el cierre de marca para llegar a ~30 s.\n';
+o += 'Si cambias el audio: genera scripts/alignment_voz.json con los nuevos tiempos por palabra y ejecuta `npm run timing`.\n\n';
 for (const f of frags) {
   o += `FRAGMENTO ${f.id} · Escena ${f.scene}\n`;
   o += `  Inicio: ${mmss(f.start)}   Fin: ${mmss(f.end)}   Duración: ${r(f.end - f.start).toFixed(2)} s\n`;
@@ -100,6 +114,7 @@ const cues = {
   // ding de tarea completada
   dings: [wS(4,14) + 0.45, wS(3,12) + 0.3],
   // cambio de intensidad musical
+  s2: fS(2) - 0.35,
   tensionEnd: fS(3) - 0.2, // desde aquí la música se vuelve positiva
   total,
 };
@@ -115,7 +130,7 @@ const scn = [
   ['5', 'INTERACCIÓN Y MARCA', fS(5) - 0.35, total, 'Match cut al magenta; pregunta; logo y CTA en silencio de voz'],
 ];
 let ex = '\n' + '='.repeat(78) + '\nESCENAS DEL VIDEO (para colocar música/SFX y la voz en tu editor)\n' + '='.repeat(78) + '\n';
-ex += `Coloca el archivo de VOZ de modo que su primera palabra («Tener») caiga en ${mmss(START)} (${START} s) y ajusta el resto con la tabla de arriba.\n`;
+ex += 'La VOZ (Tener_una_.wav) ya está sincronizada: colócala en 00:00.00 del video; no hay que desplazarla.\n';
 ex += 'Cambio de intensidad de la música: tensión 0:00 → ' + mmss(cues.tensionEnd) + '; sensación positiva desde ahí.\n\n';
 for (const [n, name, a, b, note] of scn) ex += `Escena ${n} · ${name}\n  ${mmss(a)} → ${mmss(b)}  (${r(b - a)} s)\n  Sonido: ${note}\n\n`;
 const lst = (a, label) => `  ${label}: ` + a.map((x) => mmss(x)).join('  ') + '\n';
