@@ -2,7 +2,8 @@ import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { C, FONT } from '../theme';
 import { CleanBG } from '../components/Backgrounds';
-import { AgendaOpen } from '../components/Agenda';
+import { PageTurn } from '../components/Photos';
+import { agendaSrc } from '../assets';
 import { PaperSwarm } from '../components/PaperSwarm';
 import { ITEMS, camZ } from './Scene2';
 import { wStart, SCENE } from '../timing';
@@ -54,9 +55,9 @@ export const Scene3: React.FC<{ t: number }> = ({ t }) => {
       </div>
       {/* agenda real (placeholder neutro) con la prioridad destacada + flecha 2D */}
       {agIn > 0 && (
-        <div style={{ position: 'absolute', left: 90, top: 560 + (1 - agIn) * 700, width: 900, opacity: Math.min(1, agIn * 1.4), transform: `scale(${0.92 + 0.08 * agIn}) rotateX(${(1 - agIn) * 24}deg)` }}>
-          <AgendaOpen w={900} h={600} flip={flip} title="HOY"
-            tasks={[{ t: 'una sola prioridad', star: true, done }, { t: 'lo que importa' }, { t: 'lo que sigue' }]} />
+        <div style={{ position: 'absolute', left: 130, top: 520 + (1 - agIn) * 700, width: 820, opacity: Math.min(1, agIn * 1.4), transform: `scale(${0.92 + 0.08 * agIn}) rotateX(${(1 - agIn) * 24}deg)` }}>
+          <PageTurn a={agendaSrc('openLuz')} b={agendaSrc('openLaura')} flip={flip} w={820} h={640} />
+          <div style={{ position: 'absolute', left: 30, bottom: 26, opacity: done, transform: `scale(${0.6 + 0.4 * done})`, transformOrigin: 'left bottom', fontFamily: FONT, fontWeight: 900, fontSize: 40, color: '#fff', background: C.hot, borderRadius: 40, padding: '12px 32px' }}>✓ UNA SOLA PRIORIDAD</div>
           <svg viewBox="0 0 400 200" style={{ position: 'absolute', left: 420, top: -220, width: 400, height: 200, overflow: 'visible' }}>
             <path d="M10 20 C 120 -10, 260 40, 330 150" fill="none" stroke={C.hot} strokeWidth={9} strokeLinecap="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - prog(t, wStart(3, 12) - 0.3, wStart(3, 12) + 0.35)} />
             <path d="M296 118 L334 160 L372 112" fill="none" stroke={C.hot} strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - prog(t, wStart(3, 12) + 0.28, wStart(3, 12) + 0.5)} />

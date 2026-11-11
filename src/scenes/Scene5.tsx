@@ -1,11 +1,11 @@
 import React from 'react';
-import { AbsoluteFill, Img, staticFile } from 'remotion';
+import { AbsoluteFill, Img, OffthreadVideo, staticFile } from 'remotion';
 import { C, FONT } from '../theme';
 import { CleanBG } from '../components/Backgrounds';
-import { Agenda } from '../components/Agenda';
+import { PhotoCard } from '../components/Photos';
 import { wStart } from '../timing';
 import { prog, inOut, outExpo, pop } from '../anim';
-import { LOGO_FILE } from '../assets';
+import { LOGO_FILE, CLIP_LUISA, agendaSrc } from '../assets';
 import { useCurrentFrame } from 'remotion';
 import voice from '../voice.json';
 
@@ -17,27 +17,22 @@ const Q: { w: number; text: string; size: number; color: string }[][] = [
   [{ w: 8, text: 'ANOTANDO COSAS?', size: 100, color: C.ink }],
 ];
 
-export const Logo: React.FC<{ size?: number }> = ({ size = 1 }) =>
-  LOGO_FILE ? <Img src={staticFile(`assets/${LOGO_FILE}`)} style={{ height: 150 * size }} /> : (
-    // Placeholder tipográfico hasta recibir el logo oficial (assets.ts → LOGO_FILE)
-    <div style={{ textAlign: 'center', fontFamily: FONT, color: C.ink, lineHeight: 1 }}>
-      <div style={{ fontSize: 96 * size, fontWeight: 900, letterSpacing: '-0.04em' }}>jireh<span style={{ color: C.hot }}>.</span></div>
-      <div style={{ fontSize: 30 * size, fontWeight: 700, letterSpacing: '0.42em', marginTop: 6 * size }}>ACCESSORIES</div>
-    </div>
-  );
+export const Logo: React.FC<{ size?: number }> = ({ size = 1 }) => (
+  <Img src={staticFile(`assets/${LOGO_FILE}`)} style={{ width: 250 * size, height: 250 * size, borderRadius: '50%', boxShadow: '0 22px 40px rgba(60,20,50,.4)' }} />
+);
 
 /** ESCENA 5 — interacción y marca: pregunta grande → agenda + logo + cierre. */
 export const Scene5: React.FC<{ t: number }> = ({ t }) => {
   const frame = useCurrentFrame();
   const end = voice.speechEnd;
-  const settle = prog(t, end + 0.1, end + 0.8, inOut);        // la pregunta sube y deja espacio a la marca
-  const agenda = prog(t, end + 0.25, end + 1.0, outExpo);
+  const settle = prog(t, end + 0.15, end + 0.8, inOut);        // la pregunta sube y deja espacio a la marca
+  const agenda = prog(t, end + 0.3, end + 1.0, outExpo);
   const logo = pop(frame, 30, end + 0.8);
   const cta = pop(frame, 30, end + 1.45, 10, 0.8);
   return (
     <AbsoluteFill>
       <CleanBG t={t + 8} />
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 215 - settle * 20, transform: `scale(${1 - settle * 0.34})`, transformOrigin: '50% 0%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 215 - settle * 20, transform: `scale(${1 - settle * 0.4})`, transformOrigin: '50% 0%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {Q.map((line, li) => line.map((s, si) => {
           const wi = wStart(5, s.w);
           const p = pop(frame, 30, wi - 0.05, 12, 0.7);
@@ -53,17 +48,21 @@ export const Scene5: React.FC<{ t: number }> = ({ t }) => {
           );
         }))}
       </div>
-      {/* agenda personalizada */}
-      <div style={{ position: 'absolute', left: 540, top: 975, perspective: 1400, opacity: agenda }}>
-        <div style={{ transformStyle: 'preserve-3d', transform: `translate(-50%, -50%) translateY(${(1 - agenda) * 500}px) rotateX(${14 + (1 - agenda) * 30}deg) rotateY(${-20 + Math.sin(t) * 4}deg) rotateZ(-5deg)` }}>
-          <Agenda w={300} h={400} depth={14} />
+      {/* agendas personalizadas reales + clip real */}
+      <div style={{ position: 'absolute', left: 540, top: 925, width: 0, height: 0, perspective: 1600, opacity: agenda }}>
+        {([['camilo', -330, -10, 0.2], ['valeria', 330, 10, 0.32]] as const).map(([k, x, r, d]) => {
+          const e = prog(t, end + d, end + d + 0.7, outExpo);
+          return <div key={k} style={{ position: 'absolute', left: -140 + x * e, top: -190 + (1 - e) * 500 + 30, transform: `rotate(${r * e}deg) rotateY(${-x / 40 * e}deg)` }}><PhotoCard src={agendaSrc(k)} w={280} h={340} /></div>;
+        })}
+        <div style={{ position: 'absolute', left: -190, top: -230 + (1 - agenda) * 500, width: 380, height: 470, borderRadius: 22, overflow: 'hidden', boxShadow: '0 34px 50px rgba(60,35,45,.4)', transform: `scale(${1 + Math.max(0, t - end) * 0.012})` }}>
+          <OffthreadVideo src={staticFile(`assets/${CLIP_LUISA}`)} muted startFrom={20} style={{ width: 380, height: 520, objectFit: 'cover', objectPosition: 'center 30%' }} />
         </div>
       </div>
       {/* logo + cierre */}
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 1245, display: 'flex', justifyContent: 'center', opacity: Math.min(1, logo), transform: `scale(${0.7 + 0.3 * logo})` }}>
-        <Logo />
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 1200, display: 'flex', justifyContent: 'center', opacity: Math.min(1, logo), transform: `scale(${0.6 + 0.4 * logo})` }}>
+        <Logo size={0.88} />
       </div>
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 1425, display: 'flex', justifyContent: 'center', opacity: Math.min(1, cta), transform: `translateY(${(1 - cta) * 30}px)` }}>
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 1445, display: 'flex', justifyContent: 'center', opacity: Math.min(1, cta), transform: `translateY(${(1 - cta) * 30}px)` }}>
         <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: 38, color: '#fff', background: C.hot, borderRadius: 60, padding: '20px 44px 24px', letterSpacing: '0.01em', textAlign: 'center', boxShadow: '0 18px 36px rgba(232,70,127,.4)', maxWidth: 800 }}>
           SÍGUENOS PARA MÁS IDEAS DE ORGANIZACIÓN
         </div>

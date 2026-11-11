@@ -13,7 +13,7 @@ const BLOCKS: Block[] = frags.flatMap((f) =>
     const nextB = f.blocks[bi + 1];
     const endWord = ws[ws.length - 1].end;
     const nextStart = nextB ? f.words[nextB.from].start : endWord + 0.5;
-    return { words: ws.map((w) => ({ text: w.text, start: w.start, emph: w.emph })), start: ws[0].start, end: Math.min(nextStart - 0.02, endWord + 0.45) };
+    return { words: ws.map((w) => ({ text: w.text, start: w.start, emph: w.emph })), start: ws[0].start, end: Math.min(nextStart - 0.02, endWord + (f.id === 5 && !nextB ? 0.22 : 0.45)) };
   }),
 );
 

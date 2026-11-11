@@ -4,6 +4,7 @@ import { C } from '../theme';
 import { ChaosBG } from '../components/Backgrounds';
 import { Type3D } from '../components/Type3D';
 import { Agenda } from '../components/Agenda';
+import { agendaSrc } from '../assets';
 import { wStart } from '../timing';
 import { prog, outExpo } from '../anim';
 
@@ -26,7 +27,7 @@ export const Scene1: React.FC<{ t: number }> = ({ t }) => {
       <div style={{ position: 'absolute', inset: 0, perspective: 1400, perspectiveOrigin: '50% 40%' }}>
         {/* agenda sobre la superficie */}
         <div style={{ position: 'absolute', left: 540, top: 1030, transformStyle: 'preserve-3d', transform: `translate(-50%,-50%) rotateX(64deg) rotateZ(${-24 + t * 2.2}deg) translateZ(${(1 - kick) * 300}px)`, opacity: kick }}>
-          <Agenda w={440} h={580} />
+          <Agenda w={440} h={560} src={agendaSrc('alejandra')} />
         </div>
         {/* kicker */}
         <div style={{ position: 'absolute', left: 0, right: 0, top: 255, textAlign: 'center', transformStyle: 'preserve-3d', opacity: prog(t, 0.05, 0.3) }}>

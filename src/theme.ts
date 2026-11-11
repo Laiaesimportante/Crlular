@@ -4,7 +4,7 @@ export const C = {
   plum: '#2B1A27',
   night: '#1E1520',
   pink: '#F3A5BC',       // rosa Jireh suave
-  hot: '#E8467F',        // acento rosa intenso (solo golpes)
+  hot: '#EE2A93',        // acento rosa intenso (solo golpes)
   blush: '#FBE3EA',
   white: '#FFF9F7',
   cream: '#F4EADF',

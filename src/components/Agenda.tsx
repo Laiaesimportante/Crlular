@@ -1,14 +1,12 @@
 import React from 'react';
 import { Img, staticFile } from 'remotion';
 import { C, FONT } from '../theme';
-import { AGENDA_COVERS } from '../assets';
+
 
 /** Agenda cerrada. Si hay foto real (assets.ts) se usa tal cual; si no, agenda vectorial NEUTRA (sin portada inventada). */
-export const Agenda: React.FC<{ w?: number; h?: number; photo?: number; color?: string; style?: React.CSSProperties; depth?: number }> = ({
-  w = 520, h = 700, photo = 0, color = C.pink, style, depth = 18,
+export const Agenda: React.FC<{ w?: number; h?: number; src?: string; color?: string; style?: React.CSSProperties; depth?: number }> = ({
+  w = 520, h = 700, src, color = C.pink, style, depth = 18,
 }) => {
-  const file = AGENDA_COVERS[photo];
-  if (file) return <Img src={staticFile(`assets/agendas/${file}`)} style={{ width: w, height: 'auto', filter: 'drop-shadow(0 30px 40px rgba(0,0,0,.35))', ...style }} />;
   return (
     <div style={{ position: 'relative', width: w, height: h, transformStyle: 'preserve-3d', ...style }}>
       {/* grosor de páginas (capas Z) */}
@@ -16,15 +14,16 @@ export const Agenda: React.FC<{ w?: number; h?: number; photo?: number; color?: 
         <div key={i} style={{ position: 'absolute', inset: 0, borderRadius: '10px 22px 22px 10px', background: i % 2 ? C.cream : C.white,
           transform: `translateZ(${-i * 1.6 - 2}px)`, border: '1px solid rgba(139,116,102,.3)' }} />
       ))}
-      {/* tapa */}
-      <div style={{ position: 'absolute', inset: 0, borderRadius: '10px 22px 22px 10px', background: `linear-gradient(135deg, ${color}, #e98fae)`,
+      {src && <Img src={staticFile(src)} style={{ position: 'absolute', inset: 0, width: w, height: h, objectFit: 'cover', borderRadius: 14, boxShadow: '0 40px 60px rgba(0,0,0,.4)' }} />}
+      {/* tapa vectorial (solo si no hay foto real) */}
+      {!src && <div style={{ position: 'absolute', inset: 0, borderRadius: '10px 22px 22px 10px', background: `linear-gradient(135deg, ${color}, #e98fae)`,
         boxShadow: 'inset 0 0 0 3px rgba(255,255,255,.18), 0 40px 60px rgba(0,0,0,.35)' }}>
         <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: w * 0.09, borderRadius: '10px 0 0 10px', background: 'linear-gradient(90deg, rgba(0,0,0,.18), rgba(255,255,255,.12) 60%, transparent)' }} />
         {/* elástico */}
         <div style={{ position: 'absolute', right: w * 0.12, top: 0, bottom: 0, width: w * 0.026, background: C.white, opacity: 0.92 }} />
         {/* brillo suave */}
         <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', background: 'linear-gradient(120deg, rgba(255,255,255,.28), transparent 38%)' }} />
-      </div>
+      </div>}
     </div>
   );
 };

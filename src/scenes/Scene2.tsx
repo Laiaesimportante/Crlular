@@ -4,6 +4,7 @@ import { C, FONT } from '../theme';
 import { ChaosBG } from '../components/Backgrounds';
 import { Type3D } from '../components/Type3D';
 import { Agenda } from '../components/Agenda';
+import { agendaSrc } from '../assets';
 import { PaperSwarm, makeItems } from '../components/PaperSwarm';
 import { wStart, SCENE, fEnd } from '../timing';
 import { prog, inOut, outExpo } from '../anim';
@@ -43,7 +44,7 @@ export const Scene2: React.FC<{ t: number }> = ({ t }) => {
         <div style={{ position: 'absolute', inset: 0, transformStyle: 'preserve-3d', transform: `translateZ(${cz}px)` }}>
           {/* producto en el centro, rodeado de listas */}
           <div style={{ position: 'absolute', left: 540, top: 700, transformStyle: 'preserve-3d', transform: `translate(-50%,-50%) translateZ(-250px) rotateY(${-22 + t * 5}deg) rotateX(12deg) rotateZ(${-8}deg)` }}>
-            <Agenda w={400} h={540} />
+            <Agenda w={400} h={480} src={agendaSrc('yus')} />
           </div>
           <PaperSwarm items={ITEMS} t={t} speed={1 - calm * 0.8} />
         </div>
