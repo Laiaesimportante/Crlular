@@ -105,3 +105,28 @@ const cues = {
 };
 for (const k of Object.keys(cues)) if (Array.isArray(cues[k])) cues[k] = cues[k].map(r);
 fs.writeFileSync('src/cues.json', JSON.stringify(cues, null, 1));
+
+// ---------- Línea de tiempo del VIDEO (para montar el audio en otro programa) + SRT ----------
+const scn = [
+  ['1', 'LA FRASE QUE ROMPE LA CREENCIA', 0, fS(2) - 0.15, 'Impacto de música en 0:00; golpes en NO / SIGNIFICA / ORGANIZADO'],
+  ['2', 'EL PROBLEMA', fS(2) - 0.35, fS(3) - 0.15, 'Whip pan de entrada; whooshes de LISTAS/TAREAS/PENDIENTES; papeles'],
+  ['3', 'EL CAMBIO DE MENTALIDAD', fS(3) - 0.35, fS(4) - 0.15, 'Impacto + cambio de música a positiva; listas se ordenan; check en «cumplir»'],
+  ['4', 'LA REFLEXIÓN', fS(4) - 0.35, fS(5) - 0.15, 'Zoom de entrada; calendario; ding de tarea completada'],
+  ['5', 'INTERACCIÓN Y MARCA', fS(5) - 0.35, total, 'Match cut al magenta; pregunta; logo y CTA en silencio de voz'],
+];
+let ex = '\n' + '='.repeat(78) + '\nESCENAS DEL VIDEO (para colocar música/SFX y la voz en tu editor)\n' + '='.repeat(78) + '\n';
+ex += `Coloca el archivo de VOZ de modo que su primera palabra («Tener») caiga en ${mmss(START)} (${START} s) y ajusta el resto con la tabla de arriba.\n`;
+ex += 'Cambio de intensidad de la música: tensión 0:00 → ' + mmss(cues.tensionEnd) + '; sensación positiva desde ahí.\n\n';
+for (const [n, name, a, b, note] of scn) ex += `Escena ${n} · ${name}\n  ${mmss(a)} → ${mmss(b)}  (${r(b - a)} s)\n  Sonido: ${note}\n\n`;
+const lst = (a, label) => `  ${label}: ` + a.map((x) => mmss(x)).join('  ') + '\n';
+ex += 'MARCAS DE SONIDO (SFX)\n' + lst(cues.hits, 'Golpes/impactos') + lst(cues.whooshes, 'Whooshes') + lst(cues.paper, 'Papel') + lst(cues.clicks, 'Clicks') + lst(cues.typing, 'Escritura') + lst(cues.dings, 'Ding tarea completada');
+fs.appendFileSync('entregables/TIMING_VOZ_JIREH_DIA01.txt', ex);
+
+const srtT = (s) => { const ms = Math.round(s * 1000); const p = (n, l = 2) => String(n).padStart(l, '0'); return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`; };
+let srt = '', k = 1;
+for (const f of frags) f.blocks.forEach((b, i) => {
+  const ws = f.words.slice(b.from, b.to + 1), nb = f.blocks[i + 1];
+  const end = nb ? f.words[nb.from].start - 0.02 : ws[ws.length - 1].end + 0.25;
+  srt += `${k++}\n${srtT(ws[0].start)} --> ${srtT(end)}\n${ws.map((w) => w.text).join(' ').toUpperCase()}\n\n`;
+});
+fs.writeFileSync('entregables/SUBTITULOS_JIREH_DIA01.srt', srt);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { spring, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
 import { frags, SCENE } from '../timing';
-import { C, FONT } from '../theme';
+import { C, FONT, SAFE } from '../theme';
 
 const KEY = new Set(['organizado', 'pendientes', 'cumplir', 'prioridad']); // ORGANIZADO / PENDIENTES / ACCIÓN (cumplir) / PRIORIDAD
 const norm = (s: string) => s.toLowerCase().replace(/[.,¿?¡!]/g, '');
@@ -22,26 +22,27 @@ export const Subtitles: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
+  if (t < SCENE.s2.from - 0.05 || t >= SCENE.s5.from - 0.05) return null; // S1 y S5: el texto grande ya es el subtítulo
   const blk = BLOCKS.find((b) => t >= b.start - 0.04 && t < b.end);
   if (!blk) return null;
   const light = t >= SCENE.s3.from + 0.15; // mundo claro desde la escena 3
   const exit = interpolate(t, [blk.end - 0.1, blk.end], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const enter = interpolate(t, [blk.start - 0.04, blk.start + 0.08], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   return (
-    <div style={{ position: 'absolute', left: 60, width: 840, top: 1215, height: 300, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center', gap: '8px 18px',
+    <div style={{ position: 'absolute', left: SAFE.x0, width: SAFE.x1 - SAFE.x0, top: SAFE.subTop, height: SAFE.subH, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center', gap: '8px 18px',
       opacity: exit * enter, transform: `translateY(${(1 - exit) * -14}px) scale(${0.97 + 0.03 * exit})` }}>
       {blk.words.map((w, i) => {
         const key = KEY.has(norm(w.text));
         const p = spring({ frame: frame - Math.round((w.start - 0.03) * fps), fps, config: { damping: 11, mass: 0.6, stiffness: 190 } });
         const vis = t >= w.start - 0.03;
-        const size = key ? 108 : w.emph ? 94 : 82;
+        const size = key ? 96 : w.emph ? 88 : 80;
         const color = key ? '#fff' : w.emph ? (light ? C.hot : C.pink) : light ? C.ink : '#fff';
         return (
           <span key={i} style={{ display: 'inline-block', fontFamily: FONT, fontWeight: 900, fontSize: size, lineHeight: 1, letterSpacing: '-0.03em', textTransform: 'uppercase', color,
-            padding: key ? '10px 26px 14px' : '0', borderRadius: 22, background: key ? C.hot : 'transparent',
-            textShadow: light && !key ? '0 3px 0 rgba(255,255,255,.7)' : key ? 'none' : '0 4px 18px rgba(0,0,0,.55)',
-            opacity: vis ? 1 : 0, transform: `translateY(${(1 - p) * 40}px) scale(${0.55 + 0.45 * p}) rotate(${key ? (1 - p) * -4 : 0}deg)`,
-            boxShadow: key ? '0 14px 30px rgba(232,70,127,.45)' : undefined }}>{w.text.replace(/\.$/, '')}</span>
+            padding: key ? '6px 22px 12px' : '0', borderRadius: 0, background: key ? C.hot : 'transparent',
+            textShadow: light ? 'none' : key ? 'none' : '0 4px 18px rgba(0,0,0,.7)',
+            opacity: vis ? 1 : 0, transform: `translateY(${(1 - p) * 40}px) scale(${0.55 + 0.45 * p}) rotate(${key ? (1 - p) * -4 : 0}deg) scaleX(.92)`,
+            boxShadow: key ? `6px 6px 0 ${light ? C.ink : '#fff'}` : undefined }}>{w.text.replace(/\.$/, '')}</span>
         );
       })}
     </div>

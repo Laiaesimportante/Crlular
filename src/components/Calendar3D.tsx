@@ -13,7 +13,7 @@ export const Calendar3D: React.FC<{ w?: number; h?: number; hi?: number; ring?: 
         <div key={i} style={{ position: 'absolute', inset: 0, borderRadius: 26, background: i % 2 ? C.beige : C.cream, transform: `translateZ(${-(i + 1) * 3}px)` }} />
       ))}
       <div style={{ position: 'absolute', inset: 0, borderRadius: 26, background: C.white, boxShadow: '0 40px 60px rgba(80,50,60,.28)', overflow: 'hidden', fontFamily: FONT }}>
-        <div style={{ height: 120, background: `linear-gradient(135deg, ${C.pink}, #ea8fae)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 54, fontWeight: 900, letterSpacing: '.18em' }}>ESTA SEMANA</div>
+        <div style={{ height: 120, background: C.hot, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 54, fontWeight: 900, letterSpacing: '.18em' }}>ESTA SEMANA</div>
         <div style={{ display: 'flex', padding: '26px 40px 0', color: C.taupe, fontWeight: 800, fontSize: 28 }}>
           {days.map((d, i) => <div key={i} style={{ width: cw, textAlign: 'center' }}>{d}</div>)}
         </div>

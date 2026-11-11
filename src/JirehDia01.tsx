@@ -16,9 +16,9 @@ type TR = { type: 'whip' | 'circle' | 'zoom'; at: number; d: number; origin?: st
 // Transiciones: whip pan · máscara circular (cambio de mentalidad) · zoom · match cut (círculo del día prioritario)
 const TRS: TR[] = [
   { type: 'whip', at: SCENE.s2.from, d: 0.3 },
-  { type: 'circle', at: SCENE.s3.from, d: 0.6, origin: '540px 760px' },
+  { type: 'circle', at: SCENE.s3.from, d: 0.6, origin: '512px 800px' },
   { type: 'zoom', at: SCENE.s4.from, d: 0.5 },
-  { type: 'circle', at: SCENE.s5.from, d: 0.7, origin: '391px 893px' },
+  { type: 'circle', at: SCENE.s5.from, d: 0.7, origin: '375px 873px' },
 ];
 const FROM = [0, SCENE.s2.from, SCENE.s3.from, SCENE.s4.from, SCENE.s5.from];
 
@@ -27,17 +27,18 @@ const Shell: React.FC<{ k: number; t: number; children: React.ReactNode }> = ({ 
   const out = k < 4 ? TRS[k] : undefined;
   const end = out ? out.at + out.d : Infinity;
   if (t < FROM[k] || t > end) return null;
-  const s: React.CSSProperties = {};
+  const beat = k <= 1 ? 1 + 0.03 * Math.exp(-((t * 2) % 1) * 7) : 1; // pulso al beat (120 bpm) en el mundo del desorden
+  const s: React.CSSProperties = { transform: `scale(${beat})` };
   if (inn && t < inn.at + inn.d) {
     const p = prog(t, inn.at, inn.at + inn.d, inOut);
-    if (inn.type === 'whip') { s.transform = `translateX(${(1 - p) * 1200}px)`; s.filter = `blur(${(1 - p) * 26}px)`; }
+    if (inn.type === 'whip') { s.transform = `translateX(${(1 - p) * 1200}px) scale(${beat})`; s.filter = `blur(${(1 - p) * 26}px)`; }
     if (inn.type === 'circle') { s.clipPath = `circle(${p * 2300}px at ${inn.origin})`; }
     if (inn.type === 'zoom') { s.transform = `scale(${0.55 + 0.45 * p})`; s.opacity = Math.min(1, p * 1.8); s.filter = `blur(${(1 - p) * 12}px)`; }
   }
   if (out && t > out.at) {
     const p = prog(t, out.at, out.at + out.d, inOut);
-    if (out.type === 'whip') { s.transform = `translateX(${-p * 1200}px)`; s.filter = `blur(${p * 26}px)`; }
-    if (out.type === 'circle') { s.transform = `scale(${1 + p * 0.06})`; }
+    if (out.type === 'whip') { s.transform = `translateX(${-p * 1200}px) scale(${beat})`; s.filter = `blur(${p * 26}px)`; }
+    if (out.type === 'circle') { s.transform = `scale(${(1 + p * 0.06) * beat})`; }
     if (out.type === 'zoom') { s.transform = `scale(${1 + p * 1.3})`; s.opacity = 1 - p; s.filter = `blur(${p * 14}px)`; }
   }
   return <AbsoluteFill style={s}>{children}</AbsoluteFill>;

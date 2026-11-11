@@ -4,7 +4,7 @@ import { Paper } from './Paper';
 
 const N = 26;
 const KEEP = 5; // la lista que queda: la única prioridad
-export const GRID = { cols: 4, rows: 3, cw: 222, ch: 285, scale: 0.55 };
+export const GRID = { cols: 4, rows: 2, cw: 214, ch: 272, scale: 0.5 };
 type Item = { x: number; y: number; z: number; rx: number; ry: number; rz: number; sx: number; sy: number; sz: number; ph: number; s: number; tint: 'paper' | 'pink' | 'kraft'; spawn: number };
 
 export const makeItems = (spawnAt: number): Item[] =>
@@ -19,10 +19,10 @@ export const makeItems = (spawnAt: number): Item[] =>
 /**
  * Enjambre de listas. `t` tiempo absoluto, `order` 0..1 (caos→cuadrícula), `keep` 0..1 (resto desaparece y queda UNA prioridad), `base` t de referencia de movimiento.
  */
-export const PaperSwarm: React.FC<{ items: Item[]; t: number; order?: number; keep?: number; appear?: number; speed?: number }> = ({ items, t, order = 0, keep = 0, appear = 1, speed = 1 }) => {
+export const PaperSwarm: React.FC<{ items: Item[]; t: number; order?: number; keep?: number; appear?: number; speed?: number; cx?: number; cy?: number }> = ({ items, t, order = 0, keep = 0, appear = 1, speed = 1, cx: ox = 540, cy: oy = 700 }) => {
   const e = order * order * (3 - 2 * order); // smoothstep
   return (
-    <div style={{ position: 'absolute', left: 540, top: 700, width: 0, height: 0, transformStyle: 'preserve-3d' }}>
+    <div style={{ position: 'absolute', left: ox, top: oy, width: 0, height: 0, transformStyle: 'preserve-3d' }}>
       {items.map((it, i) => {
         const age = (t - it.spawn) * appear;
         if (age < 0) return null;
@@ -32,7 +32,7 @@ export const PaperSwarm: React.FC<{ items: Item[]; t: number; order?: number; ke
         const crx = it.rx + it.sx * tt, cry = it.ry + it.sy * tt, crz = it.rz + it.sz * tt * 0.6;
         const inGrid = i < GRID.cols * GRID.rows;
         const col = i % GRID.cols, row = Math.floor(i / GRID.cols);
-        const gx = (col - (GRID.cols - 1) / 2) * GRID.cw, gy = (row - (GRID.rows - 1) / 2) * GRID.ch - 30;
+        const gx = (col - (GRID.cols - 1) / 2) * GRID.cw, gy = (row - (GRID.rows - 1) / 2) * GRID.ch;
         const L = (a: number, b: number) => a + (b - a) * e;
         // los que no están en la cuadrícula se alejan y se desvanecen
         const x = inGrid ? L(cx, gx) : L(cx, cx * 1.6), y = inGrid ? L(cy, gy) : L(cy, cy * 1.6 - 400), z = inGrid ? L(cz, 0) : L(cz, -2600);

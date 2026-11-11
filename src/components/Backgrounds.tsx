@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Img, staticFile, useCurrentFrame, random } from 'remotion';
+import { AbsoluteFill, staticFile, useCurrentFrame, random } from 'remotion';
 import { C } from '../theme';
 
 export const Grain: React.FC<{ opacity?: number }> = ({ opacity = 0.09 }) => {
@@ -11,20 +11,36 @@ export const Grain: React.FC<{ opacity?: number }> = ({ opacity = 0.09 }) => {
   );
 };
 
-/** MUNDO 1 — desorden: oscuro, contraste, rosa como luz de neón. */
+/** Trama de medios tonos (halftone) con máscara. */
+export const Halftone: React.FC<{ color: string; size?: number; dot?: number; mask: string; opacity?: number; style?: React.CSSProperties }> = ({ color, size = 22, dot = 3.2, mask, opacity = 1, style }) => (
+  <div style={{ position: 'absolute', inset: 0, opacity, backgroundImage: `radial-gradient(circle, ${color} ${dot}px, transparent ${dot + 0.6}px)`, backgroundSize: `${size}px ${size}px`,
+    WebkitMaskImage: mask, maskImage: mask, ...style }} />
+);
+
+/** MUNDO 1 — DESORDEN: negro, magenta, trama, líneas rápidas. */
 export const ChaosBG: React.FC<{ t: number; heat?: number }> = ({ t, heat = 0.5 }) => (
-  <AbsoluteFill style={{ background: `radial-gradient(900px 900px at ${30 + 25 * Math.sin(t * 0.9)}% ${30 + 10 * Math.cos(t * 0.7)}%, rgba(232,70,127,${0.28 * heat + 0.1}), transparent 60%), radial-gradient(1000px 1200px at 85% 85%, rgba(243,165,188,0.14), transparent 60%), linear-gradient(180deg, ${C.night}, ${C.ink} 70%)` }}>
-    {/* barras de luz diagonales para sensación de velocidad */}
-    {[0, 1, 2].map((i) => (
-      <div key={i} style={{ position: 'absolute', left: `${((t * (60 + i * 25) + i * 380) % 1500) - 300}px`, top: -200, width: 3 + i * 3, height: 2400,
-        background: 'linear-gradient(180deg, transparent, rgba(243,165,188,0.20), transparent)', transform: 'rotate(18deg)' }} />
+  <AbsoluteFill style={{ background: `radial-gradient(900px 900px at ${25 + 30 * Math.sin(t * 0.9)}% ${25 + 10 * Math.cos(t * 0.7)}%, rgba(255,31,158,${0.22 * heat + 0.06}), transparent 62%), ${C.ink}` }}>
+    <Halftone color="rgba(255,31,158,.55)" size={24} dot={3.4} mask="linear-gradient(200deg, #000 0%, transparent 45%)" opacity={0.5 + heat * 0.4} />
+    {[0, 1, 2, 3].map((i) => (
+      <div key={i} style={{ position: 'absolute', left: `${((t * (90 + i * 40) + i * 330) % 1600) - 300}px`, top: -200, width: 2 + i * 2, height: 2400,
+        background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.22), transparent)', transform: 'rotate(18deg)' }} />
     ))}
   </AbsoluteFill>
 );
 
-/** MUNDO 2 — organización: claro, suave, rosado/neutro. */
-export const CleanBG: React.FC<{ t?: number }> = ({ t = 0 }) => (
-  <AbsoluteFill style={{ background: `radial-gradient(1100px 900px at ${25 + 4 * Math.sin(t * 0.4)}% 12%, #ffffff, transparent 62%), radial-gradient(900px 900px at 90% 70%, ${C.blush}, transparent 65%), linear-gradient(180deg, ${C.cream}, ${C.beige})` }}>
-    <AbsoluteFill style={{ background: 'radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(139,116,102,0.22))' }} />
+/** MUNDO 2 — ORDEN: papel blanco con rejilla editorial (columnas y marcas finas). */
+export const CleanBG: React.FC<{ t?: number }> = () => (
+  <AbsoluteFill style={{ background: C.paper }}>
+    {[64, 288, 512, 736, 960].map((x) => <div key={x} style={{ position: 'absolute', left: x, top: 0, bottom: 0, width: 2, background: 'rgba(10,9,12,.08)' }} />)}
+    {[300, 560, 820, 1080, 1340].map((y) => <div key={y} style={{ position: 'absolute', top: y, left: 64, right: 120, height: 2, background: 'rgba(10,9,12,.08)' }} />)}
+    <div style={{ position: 'absolute', left: 64, top: 1420, width: 10, height: 10, borderRadius: 5, background: C.hot }} />
+  </AbsoluteFill>
+);
+
+/** CIERRE — magenta pleno del logo con trama negra. */
+export const MagentaBG: React.FC = () => (
+  <AbsoluteFill style={{ background: C.hot }}>
+    <Halftone color="rgba(10,9,12,.30)" size={26} dot={4} mask="linear-gradient(160deg, #000 0%, transparent 55%)" />
+    <Halftone color="rgba(255,255,255,.35)" size={26} dot={3} mask="linear-gradient(340deg, #000 0%, transparent 40%)" />
   </AbsoluteFill>
 );
